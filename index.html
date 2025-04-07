@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Casino do Amazona</title>
+    <style>
+        body { font-family: Arial; background-color: #121212; color: white; text-align: center; padding: 20px; }
+        input, button { margin: 5px; padding: 10px; }
+        .container { background: #1e1e1e; padding: 20px; border-radius: 10px; max-width: 500px; margin: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Casino do Amazona</h1>
+        {% if user %}
+            <p>Bem-vindo, {{ session['username'] }}!</p>
+            <p>Saldo: R$ {{ user['balance'] }}</p>
+
+            <form action="/play" method="post">
+                <input type="number" name="bet" placeholder="Valor da aposta" required>
+                <select name="choice">
+                    <option value="cara">Cara</option>
+                    <option value="coroa">Coroa</option>
+                </select>
+                <button type="submit">Jogar</button>
+            </form>
+
+            <form action="/deposit" method="post">
+                <input type="number" name="amount" placeholder="Valor do depósito" required>
+                <button type="submit">Depositar</button>
+            </form>
+
+            <form action="/withdraw" method="post">
+                <input type="number" name="amount" placeholder="Valor do saque" required>
+                <button type="submit">Sacar</button>
+            </form>
+
+            <a href="/history">Ver Histórico</a><br><br>
+            <a href="/logout">Sair</a>
+
+        {% else %}
+            <h3>Login</h3>
+            <form action="/login" method="post">
+                <input type="text" name="username" placeholder="Usuário" required>
+                <input type="password" name="password" placeholder="Senha" required>
+                <button type="submit">Entrar</button>
+            </form>
+
+            <h3>Cadastro</h3>
+            <form action="/register" method="post">
+                <input type="text" name="username" placeholder="Usuário" required>
+                <input type="password" name="password" placeholder="Senha" required>
+                <button type="submit">Cadastrar</button>
+            </form>
+        {% endif %}
+    </div>
+</body>
+</html>
